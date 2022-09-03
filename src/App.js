@@ -20,6 +20,12 @@ function App() {
       {/* Home Route */}
       <Route path={AppRoutes.home} element={<Home />} />
 
+      {/* Profile Route */}
+      <Route path={AppRoutes.profile} element={<Profile />} />
+
+      {/* View Route */}
+      <Route path={AppRoutes.view} element={<View />} />
+
       {/* For unknow/non-defined path */}
       <Route path="*" element={<p>404 - Not Found</p>} />
 

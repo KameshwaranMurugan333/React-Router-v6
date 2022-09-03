@@ -1,20 +1,20 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { AppRoutes } from "../../router/routes";
-
-function useQuery() {
-    const { search } = useLocation();
-
-    return React.useMemo(() => new URLSearchParams(search), [search]);
-}
 
 export const Profile = (props) => {
 
-    const queryParams = useQuery();
+    const [searchparams, setSearchParams] = useSearchParams();
+
+    const changeQuery = () => {
+        setSearchParams({ role: "trainer"})
+    }
 
     return <div>
         <p>I am Profile Screen</p>
-        <p>Query Params: {JSON.stringify(queryParams.get("name"))}</p>
+        <p>Query Params: {JSON.stringify(searchparams.get("name"))}</p>
+        <p>Query Params: {JSON.stringify(searchparams.get("age"))}</p>
+        <button onClick={changeQuery} >Change Query</button>
         <Link to={AppRoutes.home}>Go Back to Home</Link> <br />
         <Link to={AppRoutes.login}>Go to Login</Link>
     </div>
