@@ -1,32 +1,27 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { AppRoutes } from './routes';
 
-const PrivateRoute = ({ children, ...rest }) => {
+const PrivateRoute = ({ children, path = "", ...rest }) => {
 
     const isLoggedIn = () => {
-        if(localStorage.getItem("auth_token")){
+        if (localStorage.getItem("auth_token")) {
             return true;
-        }else{
+        } else {
             return false;
         }
     };
 
-    return <Route
-        {...rest}
-        render={(_) => {
-            if (isLoggedIn()) {
-                return children
-            } else {
-                return <Redirect
-                    to={{
-                        pathname: AppRoutes.login,
-                        state: { from: _?.location },
-                    }}
-                />
-            }
-        }}
-    />
+
+    if (isLoggedIn()) {
+        return children
+    } else {
+        return <Navigate
+            to={AppRoutes.login}
+            state={{ from: path }}
+        />
+    }
+
 }
 
 export default PrivateRoute;
