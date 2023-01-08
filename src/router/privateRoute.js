@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import { AppRoutes } from './routes';
 
-const PrivateRoute = ({ children, path = "", ...rest }) => {
+const PrivateRoute = (props) => {
 
     const isLoggedIn = () => {
         if (localStorage.getItem("auth_token")) {
@@ -14,11 +14,11 @@ const PrivateRoute = ({ children, path = "", ...rest }) => {
 
 
     if (isLoggedIn()) {
-        return children
+        return props.children
     } else {
         return <Navigate
             to={AppRoutes.login}
-            state={{ from: path }}
+            state={{ from: props.path }}
         />
     }
 

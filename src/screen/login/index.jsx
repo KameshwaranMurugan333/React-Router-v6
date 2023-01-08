@@ -1,10 +1,11 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AppRoutes } from "../../router/routes";
 
 export const Login = (props) => {
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     const navigateToHome = () => {
         navigate(AppRoutes.home);
@@ -24,7 +25,11 @@ export const Login = (props) => {
 
     const login = () => {
         localStorage.setItem("auth_token", "token");
-        navigateToHome();
+        if(location?.state?.from){
+            navigate(location.state.from)
+        }else{
+            navigateToHome();
+        }
     }
 
     React.useEffect(() => {
